@@ -2,13 +2,13 @@ lengthOfLongestSubstring = function (s) {
     var longest = 0;
     var left = -1;
     var location = {};
-    for (var i = 0; i < s.length; i++) {
-        if (location[s[i]] > left) {
-            left = location[s[i]];
+    for (var right = 0; right < s.length; right++) {
+        if (location[s[right]] > left) {
+            left = location[s[right]];
         }
-        location[s[i]] = i;
-        if (longest < i - left)
-            longest = i - left;
+        location[s[right]] = right;
+        if (longest < right - left)
+            longest = right - left;
     }
     return longest;
 };
