@@ -3,21 +3,41 @@ function ListNode(val) {
     this.next = null;
 }
 
-var addTwoNumbers = function (l1, l2) {
-    var result = new ListNode(0);
-    var p = result;
-    while (l1 || l2) {
-        p.val += ((l1 ? l1.val : 0) + (l2 ? l2.val : 0));
-        if ((l1 && l1.next) || (l2 && l2.next) || p.val >= 10)
-            p.next = new ListNode(p.val >= 10 ? 1 : 0);
-        p.val %= 10;
-        p = p.next;
-        if (l1)
-            l1 = l1.next;
-        if (l2)
-            l2 = l2.next;
+var list2array = function (list) {
+    var array = [];
+    for (var i = 0; list; i++) {
+        array[i] = list.val;
+        list = list.next;
     }
-    return result;
+    return array;
+};
+
+var array2list = function (array) {
+    var list = new ListNode();
+    var p = list;
+    while (array.length > 1 && array[array.length - 1] === 0)
+        array.pop();
+    for (var i = 0; i < array.length; i++) {
+        p.next = new ListNode(array[i]);
+        p = p.next;
+    }
+    return list.next;
+};
+
+var max = function (a, b) {
+    return a > b ? a : b;
+};
+
+var addTwoNumbers = function (l1, l2) {
+    var array1 = list2array(l1);
+    var array2 = list2array(l2);
+    var result = [0];
+    for (var i = 0; i < max(array1.length, array2.length); i++) {
+        result[i] += (array1[i] || 0) + (array2[i] || 0);
+        result[i + 1] = result[i] >= 10 ? 1 : 0;
+        result[i] %= 10;
+    }
+    return array2list(result);
 };
 
 var l1 = new ListNode(2);
@@ -39,3 +59,4 @@ l5.next = new ListNode(1);
 console.log(addTwoNumbers(l1, l2));
 console.log(addTwoNumbers(l3, l4));
 console.log(addTwoNumbers(l3, l5));
+console.log(addTwoNumbers(new ListNode(0), new ListNode(0)));
