@@ -7,16 +7,16 @@ var convert = function (s, numRows) {
     for (i = 0; i < numRows; i++) {
         lines[i] = [];
     }
-    var direct = 1;
+    var direction = 1;
     var j = -1;
     for (i = 0; i < s.length; i++) {
-        j += direct;
+        j += direction;
         lines[j].push(s[i]);
         if (j === numRows - 1) {
-            direct = -1;
+            direction = -1;
         }
         if (j === 0) {
-            direct = 1;
+            direction = 1;
         }
     }
     var result = [];
